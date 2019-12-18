@@ -1,0 +1,8 @@
+
+dist/*
+target/
+
+### Scala ###
+*.class
+*.log
+logfile
