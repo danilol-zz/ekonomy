@@ -6,9 +6,9 @@ import com.typesafe.scalalogging.Logger
 import doobie.util.transactor.Transactor
 import monix.eval.Task
 import monix.execution.Scheduler
-import repositories.{CategoriesRepository, LunchPlacesRepository, AccountsRepository}
-import routes.{CategoriesRoutes, HelloWorldRoutes, LunchPlacesRoutes, AccountsRoutes}
-import services.{CategoriesService, LunchPlacesService, AccountsService}
+import repositories.{CategoriesRepository, AccountsRepository}
+import routes.{CategoriesRoutes, AccountsRoutes}
+import services.{CategoriesService, AccountsService}
 import scala.io.StdIn
 
 object Main {
@@ -26,12 +26,6 @@ object Main {
     )
 
     val logger = Logger("main")
-
-    val helloWorldRoutes = HelloWorldRoutes.route
-
-    val lunchPlacesRepository = new LunchPlacesRepository
-    val lunchPlacesService = new LunchPlacesService(lunchPlacesRepository)
-    val lunchPlacesRoutes = new LunchPlacesRoutes(lunchPlacesService).routes
     val categoriesRepository = new CategoriesRepository
     val categoriesService = new CategoriesService(categoriesRepository)
     val categoriesRoutes = new CategoriesRoutes(categoriesService).routes
@@ -39,7 +33,7 @@ object Main {
     val accountsService = new AccountsService(accountsRepository)
     val accountsRoutes = new AccountsRoutes(accountsService).routes
 
-    val route = helloWorldRoutes ~ lunchPlacesRoutes ~ categoriesRoutes ~ accountsRoutes
+    val route = categoriesRoutes ~ accountsRoutes
 
     val bindingFuture = Http().bindAndHandle(route, "localhost", 8080)
 

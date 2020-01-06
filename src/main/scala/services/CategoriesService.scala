@@ -5,7 +5,7 @@ import com.typesafe.scalalogging.Logger
 import doobie.util.transactor.Transactor
 import errors.AppError
 import cats.implicits._
-import models.{Category, LunchPlace}
+import models.Category
 import monix.eval.Task
 import repositories.CategoriesRepository
 import java.time.Instant
