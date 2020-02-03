@@ -1,0 +1,7 @@
+- Add balance to each account
+- Add transactions:
+  - Positive
+  - Negative
+  - Between accounts
+- Filters
+- Users
