@@ -7,10 +7,15 @@ import com.typesafe.scalalogging.Logger
 import doobie.implicits._
 import doobie.util.transactor.Transactor
 import errors.AppError
-import models.BalanceTransaction
+import models.{BalanceTransaction}
 import monix.eval.Task
-import repositories.CategoriesRepository
+import repositories.{BalanceTransactionsRepository}
 
-class BalanceTransactionsService()(implicit db: Transactor[Task]) {
+class BalanceTransactionsService(repository: BalanceTransactionsRepository)(implicit db: Transactor[Task]) {
 
+  val logger = Logger(getClass)
+
+  def createBalanceTransaction(balanceTransaction: BalanceTransaction): Task[BalanceTransaction] = {
+    repository.createBalanceTransaction(balanceTransaction).transact(db)
+  }
 }
