@@ -3,5 +3,6 @@
   - Positive
   - Negative
   - Between accounts
+- Nested Categories
 - Filters
 - Users

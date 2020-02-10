@@ -35,9 +35,9 @@ object Main {
 
     val route = categoriesRoutes ~ accountsRoutes
 
-    val bindingFuture = Http().bindAndHandle(route, "localhost", 8080)
+    val bindingFuture = Http().bindAndHandle(route, "localhost", 3000)
 
-    logger.info("Server is running at http://localhost:8080")
+    logger.info("Server is running at http://localhost:3000")
 
     StdIn.readLine()
 
