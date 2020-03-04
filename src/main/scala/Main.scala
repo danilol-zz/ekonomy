@@ -6,6 +6,8 @@ import com.typesafe.scalalogging.Logger
 import doobie.util.transactor.Transactor
 import monix.eval.Task
 import monix.execution.Scheduler
+import org.flywaydb.core.Flyway
+import pureconfig.ConfigSource
 import repositories.{AccountsRepository, BalanceTransactionsRepository, CategoriesRepository}
 import routes.{AccountsRoutes, BalanceTransactionsRoutes, CategoriesRoutes}
 import services.{AccountsService, BalanceTransactionsService, CategoriesService}
@@ -16,11 +18,14 @@ object Main {
 
   def main(args: Array[String]): Unit = {
 
+
     implicit val system: ActorSystem = ActorSystem("my-system")
     implicit val materializer: ActorMaterializer = ActorMaterializer()
     implicit val scheduler: Scheduler = Scheduler(system.dispatcher)
 
     val dbConfig = Settings.config.db
+
+    Flyway.configure.dataSource(dbConfig.url, dbConfig.user, dbConfig.password).load.migrate()
 
     implicit val transactor: Transactor[Task] = Transactor.fromDriverManager(
       dbConfig.driver, dbConfig.effectiveUrl, dbConfig.user, dbConfig.password
