@@ -17,10 +17,12 @@ class BalanceTransactionsRoutes(balanceTransactionService: BalanceTransactionsSe
         path("transactions") {
           post {
             entity(as[BalanceTransactionRequest]) { balanceTransactionRequest =>
-              val balanceTransaction = BalanceTransactionRequest.toBalanceTransaction(balanceTransactionRequest,
+              val balanceTransaction =
+                BalanceTransactionRequest.toBalanceTransaction(balanceTransactionRequest,
                 id = 0, createdAt = Instant.now, updatedAt = Instant.now)
 
-              val balanceTransactionTask = balanceTransactionService.createBalanceTransaction(balanceTransaction)
+              val balanceTransactionTask =
+                balanceTransactionService.createBalanceTransaction(balanceTransaction)
               complete((Created, balanceTransactionTask.runToFuture))
             }
           }

@@ -8,7 +8,7 @@ class AccountsRepository {
   def saveAccount(name: String, now: Instant): ConnectionIO[Account] = {
     sql"INSERT INTO accounts (name, created_at, updated_at) VALUES ($name, $now, $now)"
       .update
-      .withUniqueGeneratedKeys("id", "name", "created_at", "updated_at")
+      .withUniqueGeneratedKeys("id")
   }
 
   def getById(id: Long): ConnectionIO[Option[Account]] = {
